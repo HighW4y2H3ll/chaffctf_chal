@@ -8,8 +8,9 @@
 #mkdir -p /data/chaffctf/challog/${TARGET}/unchaff/tmps
 #mkdir -p /data/chaffctf/challog/${TARGET}/unchaff/xinetd
 
-TARGET=testshell
-PORT=8090
+TARGET=$1
+UNPORT=$2
+PORT=$(($UNPORT+1))
 SCRIPT_PATH=$(dirname $(realpath $0))
 DEPLOY_PATH=$(dirname ${SCRIPT_PATH})/ctf/${TARGET}
 XINETD_PATH=$(dirname ${SCRIPT_PATH})/xinetd
@@ -48,6 +49,6 @@ if [ -f ${CHAL_PATH}/unchaff.tar ]; then
 	mv flag ${DEPLOY_PATH}/flag_unchaff;
 	rm ${TARGET};
 
-	cat ${SCRIPT_PATH}/template.cfg | python3 -c "import sys; sys.stdout.write(sys.stdin.read().format(WORKDIR='${SCRIPT_PATH}', TARGET='${TARGET}_unchaff', PORT=${PORT}))" > ${XINETD_PATH}/${TARGET}_unchaff
+	cat ${SCRIPT_PATH}/template.cfg | python3 -c "import sys; sys.stdout.write(sys.stdin.read().format(WORKDIR='${SCRIPT_PATH}', TARGET='${TARGET}_unchaff', PORT=${UNPORT}))" > ${XINETD_PATH}/${TARGET}_unchaff
 fi
 popd
