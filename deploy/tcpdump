@@ -14,7 +14,7 @@ NAME="tcpdump"
 PATH="/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin"
 APPDIR="/"
 APPBIN="/usr/sbin/tcpdump"
-APPARGS="-w /dump/net.pcap"
+APPARGS="--immediate-mode -s 0 -w /dump/net.pcap"
 USER="root"
 GROUP="root"
 

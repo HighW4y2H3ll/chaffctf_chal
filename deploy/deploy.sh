@@ -22,10 +22,11 @@ mkdir -p ${XINETD_PATH}
 pushd ${SCRIPT_PATH}
 if [ -f ${CHAL_PATH}/chaff.tar ]; then
 	mkdir -p /data/chaffctf/xinetdlog/${TARGET}_chaff
-	mkdir -p /data/chaffctf/challog/${TARGET}_chaff/tmps
-	chmod 777 /data/chaffctf/challog/${TARGET}_chaff/tmps
-	mkdir -p /data/chaffctf/challog/${TARGET}_chaff/dumps
-	chmod 777 /data/chaffctf/challog/${TARGET}_chaff/dumps
+	chmod 777 /data/chaffctf/xinetdlog/${TARGET}_chaff
+	#mkdir -p /data/chaffctf/challog/${TARGET}_chaff/tmps
+	#chmod 777 /data/chaffctf/challog/${TARGET}_chaff/tmps
+	#mkdir -p /data/chaffctf/challog/${TARGET}_chaff/dumps
+	#chmod 777 /data/chaffctf/challog/${TARGET}_chaff/dumps
 
 	xxd -u -l 16 -p /dev/urandom | awk '{print "flag{" $1 "}"}' > flag;
 	tar -xf ${CHAL_PATH}/chaff.tar ${TARGET};
@@ -38,10 +39,11 @@ fi
 
 if [ -f ${CHAL_PATH}/unchaff.tar ]; then
 	mkdir -p /data/chaffctf/xinetdlog/${TARGET}_unchaff
-	mkdir -p /data/chaffctf/challog/${TARGET}_unchaff/tmps
-	chmod 777 /data/chaffctf/challog/${TARGET}_unchaff/tmps
-	mkdir -p /data/chaffctf/challog/${TARGET}_unchaff/dumps
-	chmod 777 /data/chaffctf/challog/${TARGET}_unchaff/dumps
+	chmod 777 /data/chaffctf/xinetdlog/${TARGET}_unchaff
+	#mkdir -p /data/chaffctf/challog/${TARGET}_unchaff/tmps
+	#chmod 777 /data/chaffctf/challog/${TARGET}_unchaff/tmps
+	#mkdir -p /data/chaffctf/challog/${TARGET}_unchaff/dumps
+	#chmod 777 /data/chaffctf/challog/${TARGET}_unchaff/dumps
 
 	xxd -u -l 16 -p /dev/urandom | awk '{print "flag{" $1 "}"}' > flag;
 	tar -xf ${CHAL_PATH}/unchaff.tar ${TARGET};
