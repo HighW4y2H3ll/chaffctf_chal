@@ -7,8 +7,8 @@ The basic idea is to add a large number of non-exploitable bugs to a program in 
 We created two versions of each challenge, one that had chaff bugs added, and one that had only a single exploitable vulnerability.
 Each team got 3 chaff bug challenges and three normal challenges, selected at random.
 
-Unfortunately, some of the programs we used as a base were harder to manually reverse engineer than your average CTF pwn challenge.
-Some could be really painful. It's unfortunate that we realized that a little too late after the game
+Unfortunately, some of the programs we used as a base were hard to reverse engineer without any automated tooling
+(some could be really painful!). It's unfortunate that we realized that a little too late after the game
 started, but it doesn't mean they are not solvable manually. Hopefully
 this writeup can clear up some of the challenge design details.
 
