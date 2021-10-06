@@ -4,9 +4,9 @@
 
 ChaffCTF was built around the [ChaffBugs paper](https://arxiv.org/abs/1808.00659) we did ~2018s.
 Honestly, most of the challenges are not intended for manual reverse engineering.
-Some could be a really pain. It's a bit of unfortunate that we realize that a little late after the game
+Some could be a really pain. It's unfortunate that we realized that a little too late after the game
 started, but it doesn't mean they are not solveable manually. Hopefully
-this writeup could explain some of the challenge design details.
+this writeup could clear up some of the challenge design details.
 
 Our bug construction was similiar to what our paper discribed.
 We pick two-byte word as a trigger, and another 4-byte
@@ -29,9 +29,11 @@ global variables.
         profit(glob_crash);  // e.g. ret_address = glob_crash;
 ```
 
+Bug injection toolchain can be found over [here](https://github.com/HighW4y2H3ll/chaff/tree/newconstrain).
+
 ## Challenges
 
-We have 6 different code bases for the challenge.
+We have 6 different code bases for the challenges.
 All of them are stripped 32bit x86
 ELF binaries, compiled with no optimization (-O0).
 
@@ -41,7 +43,7 @@ graph theories.
 * `zipread`: zip file parsing program based on [this](https://github.com/kuba--/zip).
 * `mp3ninja`: mp3 format codec based on
 [minimp3](https://github.com/lieff/minimp3).
-* `elfparser`: ELF format parser [here](https://github.com/TheCodeArtist/elf-parser).
+* `elfparser`: a tiny ELF format parser [here](https://github.com/TheCodeArtist/elf-parser).
 * `dexvm`: a half-baked dalvik virtual machine. Source code is
 [here](https://github.com/HighW4y2H3ll/dexvm).
 
@@ -54,7 +56,8 @@ loosened constrains, so you are able to pass some useful addresses.
 For the `dexvm`, I ran out of good ideas for new constrains, so I dug out one
 of my old codebase and turned it into a challenge.
 
-When connecting to the challenge service, every player will get a full functioning shell.
+Players can download the challenge binary together with a docker file to setup their local environment for testing and debugging.
+When connecting to the challenge service, every player will get a fully functioning shell.
 Players are expected to upload their exploits to `/tmp` dir,
 run the challenge binary against the uploaded exp and pwn the binary to
 read the flag.
@@ -73,18 +76,18 @@ Lots of thanks towards @osiris friends for helping out and making all this happe
 100 mixed non-exploitable stack overflow bugs and heap overflow bugs.
 A small program relatively easy to reverse.
 
-#### Constrain
+#### Constraints
 
-Constrain for the lower half is And'ing with a random word, which is
+Constraint for the lower half is And'ing with a random word, which is
 basically passing for any number.
 
 ![](pics/regview_con_low.png)
 
-6 non-exploitable constrains for the upper half:
+6 non-exploitable constraints for the upper half:
 
 ![](pics/regview_con_up.png)
 
-The one exploitable constrain for the upper half:
+The one exploitable constraint for the upper half:
 
 ![](pics/regview_con_pass.png)
 
@@ -104,18 +107,18 @@ string in the binary. Find `pop esp; ret` stack pivot and profit.
 Relatively small program should be easy to reverse.
 Have function pointers which might be a problem for automated tools.
 
-#### Constrain
+#### Constraints
 
-Constrain for the lower half is the same, And'ing with a random word.
+Constraint for the lower half is the same, And'ing with a random word.
 
 ![](pics/regview_con_low.png)
 
-6 non-exploitable constrains for the upper half: (This is where things
+6 non-exploitable constraints for the upper half: (This is where things
 starting to get ugly. I used a lot of polynomial math here.)
 
 ![](pics/graphland_con_up.png)
 
-The one exploitable constrain for the upper half:
+The one exploitable constraint for the upper half:
 
 ![](pics/graphland_con_pass.png)
 
@@ -147,18 +150,18 @@ That should jump you back to a controlled memory, and then chain the
 overflow to unused variable.
 A bit heavier on reverse engineering.
 
-#### Constrains
+#### Constraints
 
-Constrain for the lower half is the same, And'ing with a random word.
+Constraint for the lower half is the same, And'ing with a random word.
 
 ![](pics/regview_con_low.png)
 
-6 non-exploitable constrains for the upper half: (I used quite a lot very opaque
+6 non-exploitable constraints for the upper half: (I used quite a lot very opaque
 compiler intrinics here.)
 
 ![](pics/zipread_con_up.png)
 
-The one exploitable constrain for the upper half:
+The one exploitable constraint for the upper half:
 
 ![](pics/zipread_con_pass.png)
 
@@ -185,17 +188,17 @@ Very unhealthy to manually reverse engineering -- a lot of floating
 point operations and table lookups. You will definately
 want a licensed IDA Pro if you want to go down on this road.
 
-#### Constrains
+#### Constraints
 
-Constrain for the lower half is the same, And'ing with a random word.
+Constraint for the lower half is the same, And'ing with a random word.
 
 ![](pics/regview_con_low.png)
 
-6 non-exploitable constrains for the upper half:
+6 non-exploitable constraints for the upper half:
 
 ![](pics/mp3ninja_con_up.png)
 
-The one exploitable constrain for the upper half:
+The one exploitable constraint for the upper half:
 
 ![](pics/mp3ninja_con_pass.png)
 
@@ -237,11 +240,11 @@ Constrain the upper half to a fixed base:
 
 ![](pics/elfparser_con_up.png)
 
-5 non-exploitable constrains for the lower half:
+5 non-exploitable constraints for the lower half:
 
 ![](pics/elfparser_con_low.png)
 
-The one exploitable constrain for the lower half:
+The one exploitable constraint for the lower half:
 
 ![](pics/elfparser_con_pass.png)
 
